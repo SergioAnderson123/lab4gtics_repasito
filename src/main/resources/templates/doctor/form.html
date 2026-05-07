@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Formulario Doctor</title>
+</head>
+<body>
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom" th:text="${accion} + ' Doctor'"></h1>
+
+        <form method="post" th:action="@{/doctor/save}" th:object="${doctor}" class="mt-4">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" th:field="*{fullName}"
+                       th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{fullName}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">DNI</label>
+                <input type="text" class="form-control" th:field="*{dni}"
+                       th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{dni}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" th:field="*{email}"
+                       th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{email}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" class="form-control" th:field="*{phoneNumber}"
+                       th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{phoneNumber}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha de Incorporación</label>
+                <input type="date" class="form-control" th:field="*{incorporationDate}"
+                       th:classappend="${#fields.hasErrors('incorporationDate')} ? 'is-invalid'"/>
+                <div class="invalid-feedback" th:errors="*{incorporationDate}"></div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select class="form-select" th:field="*{state}"
+                        th:classappend="${#fields.hasErrors('state')} ? 'is-invalid'">
+                    <option value="">Selecciona un estado</option>
+                    <option th:each="estado : ${estados}" th:value="${estado.id}" th:text="${estado.name}"></option>
+                </select>
+                <div class="invalid-feedback" th:errors="*{state}"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary ms-2" th:href="@{/doctor}">Cancelar</a>
+        </form>
+    </div>
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
