@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Nueva Asociación Clínica-Doctor</title>
+</head>
+<body>
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom">Nueva Asociación Clínica - Doctor</h1>
+
+        <form method="post" th:action="@{/clinicDoctor/save}" class="mt-4">
+
+            <div class="mb-3">
+                <label class="form-label">Clínica</label>
+                <select class="form-select" name="clinicId" required>
+                    <option value="">Selecciona una clínica</option>
+                    <option th:each="clinica : ${clinicas}"
+                            th:value="${clinica.id}"
+                            th:text="${clinica.name}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Doctor</label>
+                <select class="form-select" name="doctorId" required>
+                    <option value="">Selecciona un doctor</option>
+                    <option th:each="doctor : ${doctores}"
+                            th:value="${doctor.id}"
+                            th:text="${doctor.fullName}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary ms-2" th:href="@{/clinicDoctor}">Cancelar</a>
+        </form>
+    </div>
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

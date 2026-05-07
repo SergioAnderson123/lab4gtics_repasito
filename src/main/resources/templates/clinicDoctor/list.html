@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Clínicas - Doctores</title>
+</head>
+<body>
+
+<nav th:replace="~{fragments/navbar :: navbar}"></nav>
+
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 border-bottom">Clínicas - Doctores</h1>
+
+        <div th:if="${mensaje}" class="alert alert-success mt-3">
+            <span th:text="${mensaje}"></span>
+        </div>
+        <div th:if="${error}" class="alert alert-danger mt-3">
+            <span th:text="${error}"></span>
+        </div>
+
+        <div class="d-flex mt-3 mb-4">
+            <a class="btn btn-primary" th:href="@{/clinicDoctor/new}">Nueva Asociación</a>
+        </div>
+
+        <table class="table table-striped mt-4">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Clínica</th>
+                <th>Doctor</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cd, info : ${listaClinicDoctors}">
+                <td th:text="${info.index + 1}"></td>
+                <td th:text="${cd.clinic.name}"></td>
+                <td th:text="${cd.doctor.fullName}"></td>
+                <td>
+                    <a class="btn btn-danger btn-sm"
+                       th:href="@{'/clinicDoctor/delete?clinicId=' + ${cd.id.clinicId} + '&doctorId=' + ${cd.id.doctorId}}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
